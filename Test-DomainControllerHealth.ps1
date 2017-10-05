@@ -1,4 +1,82 @@
-﻿[CmdletBinding()]
+ <#
+.SYNOPSIS
+Test-DomainControllerHealth - Domain Controller Health Check Script.
+
+.DESCRIPTION 
+This script performs a list of common health checks to a specific domain, or the entire forest. The results are then compiled into a colour coded HTML report.
+
+.OUTPUTS
+The results are currently only output to HTML for email or as an HTML report file, or sent as an SMTP message with an HTML body.
+
+.PARAMETER domainName
+Perform a health check on a specific Active Directory domain.
+
+.PARAMETER ReportFile
+Output the report details to a file in the current directory.
+
+.PARAMETER SendEmail
+Send the report via email. You have to configure the correct SMTP settings.
+
+.EXAMPLE
+.\Test-DomainControllerHealth.ps1
+Checks all domains and all domain controllers in your current forest.
+
+.EXAMPLE
+.\Test-DomainControllerHealth.ps1 -domainName acme.com
+Checks all the domain controllers in the specified domain "acme.com".
+
+.EXAMPLE
+.\Test-DomainControllerHealth.ps1 -domainName acme.com -SendEmail
+Checks all the domain controllers in the specified domain "acme.com", and sends the resulting report as an email message.
+
+.LINK
+https://github.com/technologicza/Test-DomainControllerHealth.ps1
+
+.NOTES
+Written by: Jean Louw
+
+Find me on:
+
+* Blog:	https://powershellneedfulthings.com
+* Twitter:	https://twitter.com/jeanlouw
+* Github:	https://github.com/technologicza
+
+Additional Credits (code contributions and testing):
+- Paul Cunningham (All of the HTML generating code was adopted from: https://github.com/cunninghamp/Test-ExchangeServerHealth.ps1)
+- Anil Erduran (Code to parse DCDiag output with Powershell adtopted from: https://gallery.technet.microsoft.com/scriptcenter/Parse-DCDIAG-with-ce430b71)
+- Testing credits to Gabriel Gumbs. You can find him at https://twitter.com/GabrielGumbs
+- Testing credits to Dhillan Kalyan. You can find him at https://twitter.com/DjGuji 
+
+License:
+
+The MIT License (MIT)
+
+Copyright (c) 2017 Jean Louw (powershellneedfulthings.com)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Change Log
+V1.00, 06/09/2017 - Initial version
+V1.01, 05/10/2017 - First 
+#>
+
+[CmdletBinding()]
 Param(
   [Parameter( Mandatory=$false)]
   [string]$domainName,
@@ -529,79 +607,3 @@ foreach ($domainController in $allDomainControllers){
       Send-MailMessage @smtpsettings -Body $htmlreport -BodyAsHtml -Encoding ([System.Text.Encoding]::UTF8)
        
     }  
-
-    <#
-.SYNOPSIS
-Test-DomainControllerHealth - Domain Controller Health Check Script.
-
-.DESCRIPTION 
-This script performs a list of common health checks to a specific domain, or the entire forest. The results are then compiled into a colour coded HTML report.
-
-.OUTPUTS
-The results are currently only output to HTML for email or as an HTML report file, or sent as an SMTP message with an HTML body.
-
-.PARAMETER domainName
-Perform a health check on a specific Active Directory domain.
-
-.PARAMETER ReportFile
-Output the report details to a file in the current directory.
-
-.PARAMETER SendEmail
-Send the report via email. You have to configure the correct SMTP settings.
-
-.EXAMPLE
-.\Test-DomainControllerHealth.ps1
-Checks all domains and all domain controllers in your current forest.
-
-.EXAMPLE
-.\Test-DomainControllerHealth.ps1 -domainName acme.com
-Checks all the domain controllers in the specified domain "acme.com".
-
-.EXAMPLE
-.\Test-DomainControllerHealth.ps1 -domainName acme.com -SendEmail
-Checks all the domain controllers in the specified domain "acme.com", and sends the resulting report as an email message.
-
-.LINK
-https://github.com/technologicza/Test-DomainControllerHealth.ps1
-
-.NOTES
-Written by: Jean Louw
-
-Find me on:
-
-
-* Blog:	https://powershellneedfulthings.com
-* Twitter:	https://twitter.com/jeanlouw
-* Github:	https://github.com/technologicza
-
-Additional Credits (code contributions and testing):
-- Paul Cunningham (All of the HTML generating code was adopted from: https://github.com/cunninghamp/Test-ExchangeServerHealth.ps1)
-- Anil Erduran (Code to parse DCDiag output with Powershell adtopted from: https://gallery.technet.microsoft.com/scriptcenter/Parse-DCDIAG-with-ce430b71)
-
-License:
-
-The MIT License (MIT)
-
-Copyright (c) 2017 Jean Louw (powershellneedfulthings.com)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-Change Log
-V1.00, 06/09/2017 - Initial version
-#>
