@@ -161,7 +161,7 @@ If ((Test-Connection $domainNameInput -Count 1 -quiet) -eq $True)
 {
 try {
 $W32OS = Get-WmiObject -Class Win32_OperatingSystem -ComputerName $domainNameInput -ErrorAction SilentlyContinue
-$timespan = $W32OS.ConvertToDateTime($W32OS.LocalDateTime) ‚Äì $W32OS.ConvertToDateTime($W32OS.LastBootUpTime)
+$timespan = $W32OS.ConvertToDateTime($W32OS.LocalDateTime) ñ $W32OS.ConvertToDateTime($W32OS.LastBootUpTime)
 [int]$uptime = "{0:00}" -f $timespan.TotalHours
 }
 catch [exception] {
@@ -185,9 +185,9 @@ Write-Verbose "..running function Get-DITFileDriveSpace"
 If ((Test-Connection $domainNameInput -Count 1 -quiet) -eq $True)
 {
 try{
-$key = ‚ÄúSYSTEM\CurrentControlSet\Services\NTDS\Parameters‚Äù
-$valuename = ‚ÄúDSA Database file‚Äù
-$reg = [Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey(‚ÄòLocalMachine‚Äô, $domainNameInput)
+$key = ìSYSTEM\CurrentControlSet\Services\NTDS\Parametersî
+$valuename = ìDSA Database fileî
+$reg = [Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey(ëLocalMachineí, $domainNameInput)
 $regkey = $reg.opensubkey($key)
 $NTDSPath = $regkey.getvalue($valuename)
 $NTDSPathDrive = $NTDSPath.ToString().Substring(0,2)
