@@ -185,9 +185,9 @@ Write-Verbose "..running function Get-DITFileDriveSpace"
 If ((Test-Connection $domainNameInput -Count 1 -quiet) -eq $True)
 {
 try{
-$key = “SYSTEM\CurrentControlSet\Services\NTDS\Parameters”
-$valuename = “DSA Database file”
-$reg = [Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey(‘LocalMachine’, $domainNameInput)
+$key = "SYSTEM\CurrentControlSet\Services\NTDS\Parameters"
+$valuename = "DSA Database file"
+$reg = [Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey('LocalMachine', $domainNameInput)
 $regkey = $reg.opensubkey($key)
 $NTDSPath = $regkey.getvalue($valuename)
 $NTDSPathDrive = $NTDSPath.ToString().Substring(0,2)
